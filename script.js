@@ -1,6 +1,5 @@
 function displayPosts(posts) {
     const postList = document.getElementById("post-list");
-
     postList.innerHTML = "";
 
     posts.forEach(post => {
@@ -21,19 +20,12 @@ async function getPosts() {
     try {
         const response = await fetch("https://jsonplaceholder.typicode.com/posts");
         const data = await response.json();
-        return data;
+
+        displayPosts(data);
     } catch (error) {
-        console.error("Error:", error);
+        console.error(error);
     }
 }
 
-function getRandomPosts(posts, count = 5) {
-    const shuffled = [...posts].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-}
-
-document.getElementById("randomBtn").addEventListener("click", async () => {
-    const posts = await getPosts();
-    const randomPosts = getRandomPosts(posts, 5);
-    displayPosts(randomPosts);
-});
+// Call function
+getPosts();
